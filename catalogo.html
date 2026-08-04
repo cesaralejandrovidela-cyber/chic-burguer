@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chic Burger | Premium Grilled - Catálogo Online</title>
+    
+    <!-- Meta tags SEO -->
+    <meta name="description" content="Catálogo online premium de Chic Burger. Disfruta de las mejores hamburguesas caseras elaboradas con ingredientes de alta calidad. Haz tu pedido y recíbelo con delivery directo a tu casa.">
+    <meta name="keywords" content="hamburguesería, premium, chic burger, hamburguesas, delivery, alta cocina, gourmet">
+    <meta name="author" content="Chic Burger">
+    
+    <!-- FontAwesome para iconos hermosos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Archivo de estilos principal -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Contenedor de Toasts (Notificaciones flotantes) -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Cabecera de la Marca (Premium Modern Style) -->
+    <header class="header-banner">
+        <div class="header-frame">
+            <div class="brand-title" id="logo-branding">
+                <span class="neon-chic">CHIC</span> <span class="neon-burger">BURGER</span>
+            </div>
+            <div>
+                <span class="brand-subtitle-banner">Sabor que Enamora</span>
+            </div>
+            
+            <div class="header-meta">
+                <span class="meta-badge"><i class="fa-solid fa-motorcycle"></i> Premium Delivery</span>
+                <span class="meta-badge"><i class="fa-solid fa-clock"></i> 20:00 a 01:00 AM</span>
+                <span class="meta-badge"><i class="fa-solid fa-phone"></i> 2665131424</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL CLIENTE -->
+    <main class="app-container" id="view-client">
+        
+        <!-- Sección de Promociones Especiales -->
+        <h2 class="section-title" style="text-align: center; margin-bottom: 2rem; font-family: var(--font-heading); font-size: 1.6rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase;">
+            <i class="fa-solid fa-star" style="color: var(--primary-gold); margin-right: 0.5rem;"></i> Promociones Especiales
+        </h2>
+        
+        <div class="promo-carousel" id="promo-carousel-container">
+            <!-- Promo 1: 4 Hamburguesas -->
+            <div class="promo-card">
+                <div class="promo-ribbon">Recomendado</div>
+                <h3 class="promo-title">Promo Chic Burger</h3>
+                <p class="promo-desc">4 Hamburguesas completas en alta definición con papas fritas familiares crocantes.</p>
+                <div class="promo-price">
+                    <div>
+                        <span>$26.000</span>$23.000
+                    </div>
+                    <button class="btn-add" onclick="openPromoCustomizer('promo-chic')">Pedir Promo</button>
+                </div>
+            </div>
+
+            <!-- Promo 2: 2x Hamburguesas XL -->
+            <div class="promo-card">
+                <div class="promo-ribbon">Menú XL</div>
+                <h3 class="promo-title">Promo 2x XL + Papas</h3>
+                <p class="promo-desc">Dos hamburguesas extra grandes premium completas acompañadas de papas medianas.</p>
+                <div class="promo-price">
+                    <div>
+                        <span>$15.000</span>$12.000
+                    </div>
+                    <button class="btn-add" onclick="openPromoCustomizer('promo-2x')">Pedir Promo</button>
+                </div>
+            </div>
+
+            <!-- Promo 3: Bebida Lata -->
+            <div class="promo-card">
+                <div class="promo-ribbon">Bebida</div>
+                <h3 class="promo-title">Lata de Coca</h3>
+                <p class="promo-desc">Refresco Coca-Cola original helado para acompañar tu menú virtual.</p>
+                <div class="promo-price">
+                    <div>$2.500</div>
+                    <button class="btn-add" onclick="quickAddProduct(7)">Agregar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegación de Categorías -->
+        <nav class="category-nav" id="category-nav-bar" style="margin-bottom: 2rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-gold); background: rgba(255, 255, 255, 0.01);">
+            <div class="category-nav">
+                <button class="category-btn active" onclick="filterCategory('all')">Todos</button>
+                <button class="category-btn" onclick="filterCategory('hamburguesas')">Hamburguesas</button>
+                <button class="category-btn" onclick="filterCategory('combos')">Combos</button>
+                <button class="category-btn" onclick="filterCategory('bebidas')">Bebidas</button>
+                <button class="category-btn" onclick="filterCategory('papas-extras')">Papas & Extras</button>
+            </div>
+        </nav>
+
+        <!-- Grilla de Productos del Catálogo -->
+        <div class="catalog-grid" id="catalog-products-container">
+            <!-- Los productos se inyectan mediante JavaScript -->
+        </div>
+    </main>
+
+    <!-- ================= MODAL: PERSONALIZACIÓN DE PRODUCTO ================= -->
+    <div class="modal-overlay" id="customizer-modal" onclick="if(event.target === this) closeCustomizerModal()">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCustomizerModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <img id="cust-prod-img" class="cust-image" src="" alt="Producto">
+            
+            <div class="cust-body">
+                <div class="cust-title-row">
+                    <h2 id="cust-prod-name">Hamburguesa Simple</h2>
+                    <p id="cust-prod-desc">Detalles del producto...</p>
+                </div>
+                
+                <!-- Sección Tamaños -->
+                <div class="customizer-section" id="cust-section-sizes" style="margin-bottom: 1.2rem;">
+                    <h4 class="cust-option-title">1. Elige el Tamaño</h4>
+                    <div class="cust-options-list" id="cust-sizes-container">
+                        <!-- Inyección dinámica -->
+                    </div>
+                </div>
+
+                <!-- Sección Combos -->
+                <div class="customizer-section" id="cust-section-combos" style="margin-bottom: 1.2rem;">
+                    <h4 class="cust-option-title">2. ¿Hacerlo Combo?</h4>
+                    <div class="cust-options-list" id="cust-combos-container">
+                        <!-- Inyección dinámica -->
+                    </div>
+                </div>
+
+                <!-- Sección Extras -->
+                <div class="customizer-section" id="cust-section-extras" style="margin-bottom: 1.2rem;">
+                    <h4 class="cust-option-title">3. Agrega Extras</h4>
+                    <div class="cust-options-list" id="cust-extras-container">
+                        <!-- Inyección dinámica -->
+                    </div>
+                </div>
+
+                <!-- Cantidad & Total -->
+                <div class="cust-footer-row">
+                    <div class="cust-total-block">
+                        <span>Total del pedido</span>
+                        <h3 id="cust-total-display">$0</h3>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="quantity-control">
+                            <button class="btn-qty" onclick="updateCustQuantity(-1)">-</button>
+                            <span class="qty-val" id="cust-quantity">1</span>
+                            <button class="btn-qty" onclick="updateCustQuantity(1)">+</button>
+                        </div>
+                        
+                        <button class="btn-add" style="padding: 0.75rem 1.5rem;" onclick="addProductToCart()">
+                            <i class="fa-solid fa-cart-plus"></i> Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE DEL CARRITO -->
+    <button class="btn-cart-float" onclick="toggleCartDrawer(true)">
+        <i class="fa-solid fa-shopping-bag"></i>
+        <span class="cart-badge-count" id="cart-item-count">0</span>
+    </button>
+
+    <!-- DRAWER DEL CARRITO -->
+    <div class="drawer-overlay" id="cart-drawer-overlay" onclick="if(event.target === this) toggleCartDrawer(false)">
+        <div class="drawer-container" id="cart-drawer-container">
+            <div class="drawer-header">
+                <h3><i class="fa-solid fa-shopping-bag" style="color: var(--primary-gold); margin-right: 0.5rem;"></i> Mi Pedido</h3>
+                <button class="modal-close" style="position: static;" onclick="toggleCartDrawer(false)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="drawer-body" id="cart-items-list">
+                <div style="text-align: center; color: var(--text-muted); margin-top: 5rem;" id="cart-empty-message">
+                    <i class="fa-solid fa-basket-shopping" style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary-gold); opacity: 0.4;"></i>
+                    <p>Tu carrito está vacío.</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.5rem;">¡Agrega algunos productos premium para comenzar!</p>
+                </div>
+            </div>
+
+            <div class="drawer-footer">
+                <div class="price-summary-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">$0</span>
+                </div>
+                <div class="price-summary-row" style="color: #2ECC71;" id="row-discounts">
+                    <span>Descuentos aplicados:</span>
+                    <span id="cart-discounts">-$0</span>
+                </div>
+                <div class="price-summary-row total-row">
+                    <span>Total a Pagar:</span>
+                    <span id="cart-total">$0</span>
+                </div>
+
+                <!-- Campos del Cliente para el Pedido -->
+                <div class="form-group" style="margin-bottom: 0.8rem;">
+                    <input type="text" id="cust-delivery-name" class="form-control" placeholder="Tu Nombre *" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 1.2rem;">
+                    <input type="text" id="cust-delivery-address" class="form-control" placeholder="Dirección de Entrega / Delivery *" required>
+                </div>
+
+                <button class="btn-checkout" onclick="checkoutOrder()">
+                    <i class="fa-brands fa-whatsapp"></i> Confirmar Pedido Premium
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Chic Burger</div>
+            <p class="footer-text">Excelente calidad y seriedad desde la cocina a tu mesa. Rápido, Rico y Hecho con Amor.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts de la Aplicación -->
+    <script src="app.js"></script>
+</body>
+</html>

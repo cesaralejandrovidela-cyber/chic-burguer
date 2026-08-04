@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chic Burger | Panel de Gestión & Inventario</title>
+    
+    <!-- Meta tags SEO (Desactivados para indexador en panel de administración) -->
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- FontAwesome para iconos hermosos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Archivo de estilos principal -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Contenedor de Toasts (Notificaciones flotantes) -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- CABECERA DE LA MARCA (Actualizada estilo Flyer Retro) -->
+    <header class="header-banner">
+        <div class="header-frame">
+            <!-- Título con efecto Neón como en el folleto -->
+            <div class="brand-title" id="logo-branding">
+                <span class="neon-chic">CH<span class="neon-i">I</span>C</span> 
+                <span class="neon-burger">BURGER</span>
+            </div>
+            <div>
+                <span class="brand-subtitle-banner">Consola de Administración</span>
+            </div>
+            
+            <div class="header-meta">
+                <span class="meta-badge"><i class="fa-solid fa-gears"></i> Sistema Interno</span>
+                <span class="meta-badge"><i class="fa-solid fa-server"></i> Conectado a Nile DB</span>
+                <!-- Botón destacado para ir a la vista del cliente -->
+                <a href="catalogo.html" class="meta-badge btn-goto-client">
+                    <i class="fa-solid fa-store"></i> Ver Catálogo de Clientes
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL ADMINISTRADOR -->
+    <main class="app-container" id="view-admin">
+
+        <!-- A. PANTALLA DE LOGIN (SESIÓN DIARIA) -->
+        <div id="admin-login-overlay" class="login-box">
+            <div class="login-header">
+                <i class="fa-solid fa-lock login-icon"></i>
+                <h3>Acceso Administrativo</h3>
+                <p>Ingresa las credenciales de sesión diaria para poder editar el catálogo y procesar imágenes.</p>
+            </div>
+            <form onsubmit="handleAdminLogin(event)">
+                <div class="form-group">
+                    <label class="form-label" for="login-user">Usuario de Gestión</label>
+                    <input type="text" id="login-user" class="form-control" placeholder="Ej. admin" required value="admin">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label class="form-label" for="login-pass">Contraseña</label>
+                    <input type="password" id="login-pass" class="form-control" placeholder="••••••••" required value="chicburger2026">
+                </div>
+                <button type="submit" class="btn-process" style="width: 100%;">
+                    <i class="fa-solid fa-sign-in-alt"></i> Iniciar Sesión de Gestión
+                </button>
+            </form>
+        </div>
+
+        <!-- B. PANEL DE CONTROL (SOLO VISIBLE SI LOGUEADO) -->
+        <div id="admin-dashboard-view" class="hidden">
+            <div class="admin-top-bar">
+                <div>
+                    <h2><i class="fa-solid fa-table-columns"></i> Consola de Control Chic Burger</h2>
+                    <p style="font-size: 0.85rem; color: var(--brand-maroon-light);">Configura precios, imágenes estéticas y combos dinámicamente</p>
+                </div>
+                <button class="btn-action delete" onclick="handleAdminLogout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión
+                </button>
+            </div>
+
+            <div class="admin-split-grid">
+                
+                <!-- COLUMNA IZQUIERDA: INVENTARIO DE PRODUCTOS (Cargado de Nile DB) -->
+                <div class="admin-left-col">
+                    <div class="admin-card">
+                        <h3 class="admin-card-title">
+                            <span><i class="fa-solid fa-boxes-stacked"></i> Inventario</span>
+                            <button class="btn-add" style="font-size: 0.8rem; padding: 0.4rem 0.8rem;" onclick="createNewProductTemplate()">
+                                <i class="fa-solid fa-plus"></i> Crear Nuevo
+                            </button>
+                        </h3>
+                        
+                        <div class="inventory-search-box">
+                            <input type="text" id="inventory-search" class="form-control" placeholder="Buscar en inventario..." oninput="renderInventoryList()">
+                        </div>
+
+                        <div class="inventory-list" id="inventory-items-container">
+                            <!-- Elementos del inventario inyectados aquí -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMNA DERECHA: EDITOR VISUAL & OPTIMIZADOR IA -->
+                <div class="admin-right-col">
+                    <div class="admin-card" id="editor-placeholder-card" style="text-align: center; padding: 5rem 2rem; color: #888;">
+                        <i class="fa-solid fa-hand-pointer" style="font-size: 4rem; display: block; margin-bottom: 1rem; color: var(--brand-maroon-light);"></i>
+                        <h3>Selecciona un producto</h3>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Haz clic en cualquier producto a la izquierda para cargarlo en el Editor Visual interactivo.</p>
+                    </div>
+
+                    <div class="admin-card hidden" id="editor-active-card">
+                        <div class="editor-header">
+                            <h3 class="admin-card-title" style="margin-bottom: 0.5rem; border-bottom: none; padding-bottom: 0;">
+                                <span><i class="fa-solid fa-file-pen"></i> Editor Visual de Tarjeta</span>
+                            </h3>
+                            <span class="editing-indicator" id="editing-product-label">Hamburguesa Simple</span>
+                        </div>
+                        
+                        <!-- PREVISUALIZACIÓN EN TIEMPO REAL (Idéntica a como la verá el cliente) -->
+                        <div class="live-flyer-preview-container">
+                            <div class="preview-card-frame">
+                                <div class="live-flyer-badge" id="live-flyer-badge-discount">Llevando 2x $12.000</div>
+                                <div class="live-flyer-image-box">
+                                    <!-- Foto del producto sin filtros ni ediciones -->
+                                    <img id="live-flyer-preview-img" src="" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=60'">
+                                </div>
+                                <div class="live-flyer-info">
+                                    <div class="live-flyer-header">
+                                        <h4 id="live-flyer-name" class="live-flyer-title">Hamburguesa Simple</h4>
+                                    </div>
+                                    <p id="live-flyer-desc" class="live-flyer-description">Carne vacuna casera, lechuga, tomate, jamón, queso y huevo. Con papas.</p>
+                                    <div class="live-flyer-footer">
+                                        <span id="live-flyer-price" class="live-flyer-price-label">$7.000</span>
+                                        <button class="btn-add" disabled style="opacity: 0.8;"><i class="fa-solid fa-sliders"></i> Pedir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form id="editor-form" onsubmit="saveProductChanges(event)">
+                            <input type="hidden" id="edit-prod-id">
+
+                            <!-- Datos Principales -->
+                            <div class="form-section-title">Datos Básicos</div>
+                            
+                            <div class="form-group">
+                                <label class="form-label" for="edit-prod-name">Nombre Comercial *</label>
+                                <input type="text" id="edit-prod-name" class="form-control" required oninput="updateLivePreviewText()">
+                            </div>
+
+                            <div class="form-group" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1rem;">
+                                <div>
+                                    <label class="form-label" for="edit-prod-category">Categoría *</label>
+                                    <select id="edit-prod-category" class="form-control" required>
+                                        <option value="hamburguesas">Hamburguesas</option>
+                                        <option value="combos">Combos</option>
+                                        <option value="bebidas">Bebidas</option>
+                                        <option value="papas-extras">Papas & Extras</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="form-label" for="edit-prod-price">Precio Base ($) *</label>
+                                    <input type="number" id="edit-prod-price" class="form-control" min="0" required oninput="updateLivePreviewText()">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="edit-prod-desc">Ingredientes / Descripción Corta</label>
+                                <textarea id="edit-prod-desc" class="form-control" rows="2" oninput="updateLivePreviewText()"></textarea>
+                            </div>
+
+                            <!-- Tarifas Adicionales y Habilitaciones (Combos, Extras, Promos) -->
+                            <div class="form-section-title">Habilitaciones & Tarifas Adicionales</div>
+                            
+                            <!-- Habilitar Tamaños -->
+                            <div class="form-feature-box">
+                                <div class="feature-toggle-row">
+                                    <label class="checkbox-item" style="font-weight: bold; font-size: 0.95rem;">
+                                        <input type="checkbox" id="edit-allow-sizes" onchange="toggleFeatureInputs('sizes')"> Activar Tamaños (Ch/M/G)
+                                    </label>
+                                </div>
+                                <div class="feature-inputs-grid hidden" id="inputs-sizes-block">
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-size: 0.75rem;">Plus Mediano ($)</label>
+                                        <input type="number" id="edit-price-mediano" class="form-control" value="1500" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-size: 0.75rem;">Plus Grande ($)</label>
+                                        <input type="number" id="edit-price-grande" class="form-control" value="3000" min="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Habilitar Combo -->
+                            <div class="form-feature-box">
+                                <div class="feature-toggle-row">
+                                    <label class="checkbox-item" style="font-weight: bold; font-size: 0.95rem;">
+                                        <input type="checkbox" id="edit-allow-combos" onchange="toggleFeatureInputs('combos')"> Activar Opción de Combo (+Papas+Bebida)
+                                    </label>
+                                </div>
+                                <div class="feature-inputs-grid hidden" id="inputs-combos-block">
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-size: 0.75rem;">Precio Upgrade Combo ($)</label>
+                                        <input type="number" id="edit-price-combo" class="form-control" value="3500" min="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Habilitar Extras -->
+                            <div class="form-feature-box">
+                                <div class="feature-toggle-row">
+                                    <label class="checkbox-item" style="font-weight: bold; font-size: 0.95rem;">
+                                        <input type="checkbox" id="edit-allow-extras" onchange="toggleFeatureInputs('extras')"> Activar Adición de Extras
+                                    </label>
+                                </div>
+                                <div class="feature-inputs-grid hidden" id="inputs-extras-block">
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-size: 0.75rem;">Precio Papas Extras ($)</label>
+                                        <input type="number" id="edit-price-extra-papas" class="form-control" value="1200" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-size: 0.75rem;">Precio Queso Extra ($)</label>
+                                        <input type="number" id="edit-price-extra-queso" class="form-control" value="800" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-size: 0.75rem;">Precio Bebida Grande ($)</label>
+                                        <input type="number" id="edit-price-extra-bebida" class="form-control" value="1500" min="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Habilitar Promo 2x (Automática) -->
+                            <div class="form-feature-box">
+                                <div class="feature-toggle-row">
+                                    <label class="checkbox-item" style="font-weight: bold; font-size: 0.95rem;">
+                                        <input type="checkbox" id="edit-allow-promo" onchange="toggleFeatureInputs('promo')"> Activar Descuento Promo 2x
+                                    </label>
+                                </div>
+                                <div class="feature-inputs-grid hidden" id="inputs-promo-block">
+                                    <div class="form-group">
+                                        <label class="form-label" style="font-size: 0.75rem;">Precio Promo 2x ($)</label>
+                                        <input type="number" id="edit-price-promo" placeholder="Ej. 12000" class="form-control" min="0" oninput="updateLivePreviewText()">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- INTEGRACIÓN DE CARGA DE IMAGEN & OPTIMIZADOR IA CHIC BURGER -->
+                            <div class="form-section-title">Optimizador Estético IA Chic Burger</div>
+                            
+                            <div class="dropzone" id="image-dropzone" onclick="document.getElementById('file-input').click()">
+                                <input type="file" id="file-input" class="hidden" accept="image/*" onchange="handleImageUpload(event)">
+                                <div class="dropzone-icon"><i class="fa-solid fa-camera"></i></div>
+                                <div class="dropzone-text">Cargar Nueva Foto del Producto</div>
+                                <div class="dropzone-sub">Soporta formatos JPG, PNG, WebP</div>
+                            </div>
+
+                            <!-- Acciones finales del Formulario -->
+                            <div class="editor-actions">
+                                <button type="submit" class="btn-process">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Guardar y Publicar Tarjeta
+                                </button>
+                                
+                                <button type="button" class="btn-action" id="btn-toggle-product-active" onclick="toggleActiveEditingProduct()" style="border-color: #ff9f43; color: #ff9f43;">
+                                    <i class="fa-solid fa-eye-slash"></i> Pausar Venta
+                                </button>
+                                
+                                <button type="button" class="btn-action delete" onclick="deleteEditingProduct()">
+                                    <i class="fa-solid fa-trash-can"></i> Borrar Producto
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Chic Burger</div>
+            <p class="footer-text">Rápido, Rico y Hecho con Amor. Las mejores hamburguesas de la ciudad directo a tu mesa.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts de la Aplicación -->
+    <script src="app.js"></script>
+</body>
+</html>
