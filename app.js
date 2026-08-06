@@ -209,6 +209,7 @@ window.addEventListener("DOMContentLoaded", () => {
     
     if (isClientPage) {
         renderCart();
+        initDynamicBackground();
     }
     
     if (isAdminPage) {
@@ -883,7 +884,7 @@ function checkoutOrder() {
     }
     
     let text = `\u{1F354} *PEDIDO CHIC BURGER* \u{1F354}\n`;
-    text += `_Sabor que Enamora_\n`;
+    text += `_Un Viaje de Sabor para Compartir_\n`;
     text += `===============================\n`;
     text += `\u{1F464} *Cliente:* ${name}\n`;
     text += `\u{1F4CD} *Dirección de Entrega:* ${address}\n`;
@@ -1369,4 +1370,47 @@ function setupDragAndDrop() {
     dropzone.addEventListener('drop', (e) => {
         handleImageUpload(e);
     });
+}
+
+// Spawns floating mini burgers and hearts on the catalog screen background
+function initDynamicBackground() {
+    const container = document.createElement("div");
+    container.className = "dynamic-bg-container";
+    document.body.appendChild(container);
+
+    const emojis = ["🍔", "💖", "💕", "✨"];
+    
+    function spawnParticle() {
+        if (document.hidden) return;
+        
+        const particle = document.createElement("div");
+        particle.className = "floating-particle";
+        
+        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        particle.textContent = emoji;
+        
+        const startX = Math.random() * 100;
+        const duration = 6 + Math.random() * 6;
+        const fontSize = 14 + Math.random() * 14;
+        const drift = (Math.random() - 0.5) * 15;
+        
+        particle.style.left = startX + "%";
+        particle.style.fontSize = fontSize + "px";
+        particle.style.animationDuration = duration + "s";
+        particle.style.setProperty("--drift-val", drift + "vw");
+        
+        container.appendChild(particle);
+        
+        setTimeout(() => {
+            particle.remove();
+        }, duration * 1000);
+    }
+    
+    // Initial burst
+    for (let i = 0; i < 8; i++) {
+        setTimeout(spawnParticle, Math.random() * 6000);
+    }
+    
+    // Spawn loop
+    setInterval(spawnParticle, 1200);
 }
