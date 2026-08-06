@@ -3,10 +3,10 @@
 // localStorage persistency, admin product CRUD via REST API, sessionStorage authentication, and WhatsApp checkout.
 
 // API URL CONFIGURATION
-// Auto-detects local development vs production (Render API hosting)
+// Auto-detects local development vs production (Vercel API hosting)
 const API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
     ? "http://localhost:10000"
-    : "https://chic-burger-api.onrender.com"; // REEMPLAZAR con la URL de tu servicio en Render
+    : ""; // Relative path in production since frontend and backend are hosted together on Vercel!
 
 // Global State
 let products = [];

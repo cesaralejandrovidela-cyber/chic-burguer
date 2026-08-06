@@ -366,7 +366,12 @@ app.post('/api/products/toggle/:id', async (req, res) => {
     }
 });
 
-// Start Express Server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Export app for Vercel Serverless Functions
+module.exports = app;
+
+// Start Express Server locally if not running on Vercel
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
