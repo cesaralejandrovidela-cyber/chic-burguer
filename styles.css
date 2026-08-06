@@ -546,17 +546,17 @@ body {
 }
 
 .modal-content {
-    background-color: var(--bg-dark-deep);
-    border: 1px solid var(--border-glass);
+    background: var(--bg-card-gradient);
+    border: var(--border-card);
     border-radius: var(--border-radius-lg);
     width: 90%;
     max-width: 520px;
     max-height: 85vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: var(--shadow-premium);
+    box-shadow: var(--shadow-card);
     transform: translateY(20px);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .modal-overlay.open .modal-content {
@@ -861,7 +861,7 @@ body {
 .drawer-footer {
     padding: 1.5rem;
     border-top: 1px solid var(--border-glass);
-    background: rgba(25, 7, 10, 0.6);
+    background: var(--bg-dark-card);
 }
 
 .price-summary-row {
@@ -1053,22 +1053,25 @@ body {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    background: rgba(25, 7, 10, 0.4);
-    border: 1px solid var(--border-glass);
+    background: rgba(255, 255, 255, 0.85);
+    border: 2px solid #FFFFFF;
     border-radius: var(--border-radius-sm);
     padding: 0.6rem;
     cursor: pointer;
     transition: var(--transition-fast);
+    box-shadow: var(--plastic-inset-pill), 0 4px 10px rgba(0, 0, 0, 0.02);
 }
 
 .inventory-item-row:hover {
-    background: rgba(25, 7, 10, 0.7);
+    background: #FFFFFF;
     border-color: var(--accent-red);
+    box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.9), 0 6px 12px rgba(255, 71, 126, 0.08);
 }
 
 .inventory-item-row.selected-item {
-    background: rgba(229, 91, 119, 0.08);
+    background: rgba(255, 71, 126, 0.05);
     border-color: var(--accent-red);
+    box-shadow: var(--plastic-inset-pill), 0 4px 12px rgba(255, 71, 126, 0.12);
 }
 
 .inventory-item-thumb {
@@ -1172,19 +1175,19 @@ body {
 
 /* Image Dropzone in Editor */
 .dropzone {
-    border: 2px dashed var(--border-gold);
+    border: 2px dashed var(--border-glass);
     border-radius: var(--border-radius-sm);
     padding: 2rem 1.5rem;
     text-align: center;
     cursor: pointer;
     transition: var(--transition-fast);
-    background: rgba(25, 7, 10, 0.4);
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .dropzone:hover, .dropzone.dragover {
     border-color: var(--accent-red);
-    background: rgba(25, 7, 10, 0.7);
-    box-shadow: var(--neon-pink-shadow);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 24px rgba(255, 71, 126, 0.08);
 }
 
 .dropzone-icon {
@@ -1759,4 +1762,25 @@ body.theme-candy-mint {
     --shadow-card: var(--plastic-inset-card), var(--plastic-shadow);
     --shadow-header: inset 0 3px 6px rgba(255, 255, 255, 0.9), 0 8px 32px rgba(46, 196, 182, 0.04);
 }
+
+/* Back button in customizer modal */
+.btn-back-catalog {
+    background: #FFFFFF;
+    color: var(--text-white);
+    border: 2px solid #FFFFFF;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-shadow: var(--plastic-inset-pill), 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.btn-back-catalog:hover {
+    transform: translateY(-2px);
+    box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.9), 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
 

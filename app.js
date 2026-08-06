@@ -352,6 +352,12 @@ function renderCatalog() {
             
         const card = document.createElement("div");
         card.className = "product-card";
+        card.style.cursor = "pointer";
+        card.onclick = (e) => {
+            if (!e.target.closest('.btn-add')) {
+                openCustomizer(product.id);
+            }
+        };
         card.innerHTML = `
             <!-- Floating Promo Badge -->
             ${promoCloud}
@@ -467,7 +473,7 @@ function openCustomizerDirect(product) {
     activeCustomizerProduct = product;
     
     currentCustomizerState = {
-        size: 'chico',
+        size: product.allowSizes ? 'chico' : 'regular',
         sizePrice: 0,
         combo: false,
         comboPrice: product.priceCombo || 3500,
