@@ -28,17 +28,24 @@
     --neon-pink-text: 0 1px 2px rgba(255, 71, 126, 0.3);
     --neon-gold-text: 0 1px 2px rgba(255, 179, 71, 0.3);
     
+    /* Glossy 3D Plastic Relief Shadows */
+    --plastic-inset-card: inset 4px 4px 8px rgba(255, 255, 255, 0.95), inset -4px -4px 10px rgba(255, 71, 126, 0.08);
+    --plastic-inset-btn: inset 0 3px 5px rgba(255, 255, 255, 0.45), inset 0 -3px 5px rgba(0, 0, 0, 0.15);
+    --plastic-inset-pill: inset 2px 2px 4px rgba(255, 255, 255, 0.9), inset -2px -2px 4px rgba(255, 71, 126, 0.04);
+    --plastic-shadow: 0 15px 30px rgba(255, 71, 126, 0.12), 0 4px 8px rgba(255, 71, 126, 0.03);
+    --plastic-shadow-btn: 0 8px 20px rgba(255, 71, 126, 0.28), 0 3px 6px rgba(0, 0, 0, 0.05);
+    
     /* Fonts */
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Poppins', sans-serif;
     --font-accent: 'Satisfy', cursive;   /* elegant cursive accent for "Sabor que Enamora" */
     
-    /* Tokens */
-    --border-radius-sm: 10px;
-    --border-radius-md: 16px;
-    --border-radius-lg: 24px;
-    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Tokens (Bubbly / Rounded 3D styling) */
+    --border-radius-sm: 12px;
+    --border-radius-md: 20px;
+    --border-radius-lg: 28px;
+    --transition-fast: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* bouncy animation curves! */
+    --transition-normal: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --shadow-premium: 0 12px 30px rgba(255, 71, 126, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
@@ -85,15 +92,15 @@ body {
 
 /* Cabecera / Banner de la marca */
 .header-banner {
-    background: rgba(255, 255, 255, 0.8);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 240, 243, 0.65) 100%);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 71, 126, 0.12);
+    border-bottom: 2px solid #FFFFFF;
     padding: 1.2rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 4px 30px rgba(255, 71, 126, 0.04);
+    box-shadow: inset 0 3px 6px rgba(255, 255, 255, 0.9), 0 8px 32px rgba(255, 71, 126, 0.04);
 }
 
 .header-frame {
@@ -202,22 +209,23 @@ body {
     font-family: var(--font-heading);
     font-size: 0.85rem;
     font-weight: 600;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     color: var(--text-muted);
-    border: 1px solid var(--border-glass);
-    padding: 0.5rem 1.4rem;
+    border: 2px solid #FFFFFF;
+    padding: 0.55rem 1.5rem;
     border-radius: 30px;
     cursor: pointer;
     white-space: nowrap;
     transition: var(--transition-fast);
+    box-shadow: var(--plastic-inset-pill), 0 4px 10px rgba(0, 0, 0, 0.02);
 }
 
 .category-btn.active, .category-btn:hover {
-    background: var(--accent-red);
-    color: var(--text-white);
-    border-color: var(--accent-red);
-    box-shadow: var(--neon-pink-shadow);
-    transform: translateY(-1px);
+    background: linear-gradient(180deg, #FF7B99 0%, #FF477E 100%);
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+    box-shadow: var(--plastic-inset-btn), 0 6px 15px rgba(255, 71, 126, 0.28);
+    transform: translateY(-2px);
 }
 
 /* App Main Container */
@@ -236,22 +244,22 @@ body {
 }
 
 .promo-card {
-    background: var(--bg-dark-card);
-    border: 1px solid var(--border-glass);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 235, 238, 0.8) 100%);
+    border: 2px solid #FFFFFF;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: var(--border-radius-md);
     padding: 1.5rem;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-premium);
+    box-shadow: var(--plastic-inset-card), var(--plastic-shadow);
     transition: var(--transition-normal);
 }
 
 .promo-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-5px) scale(1.015);
     border-color: var(--accent-red);
-    box-shadow: var(--neon-pink-shadow);
+    box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 1), inset -5px -5px 12px rgba(255, 71, 126, 0.15), 0 18px 36px rgba(255, 71, 126, 0.15);
 }
 
 .promo-ribbon {
@@ -308,16 +316,16 @@ body {
     margin-top: 1.5rem;
 }
 
-/* Styled Product Card (Frosted Glassmorphism Layout) */
+/* Styled Product Card (Glossy Claymorphic 3D Bubble Layout) */
 .product-card {
-    background: var(--bg-dark-card);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 235, 238, 0.8) 100%);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid var(--border-glass);
+    border: 2px solid #FFFFFF;
     border-radius: var(--border-radius-md);
     overflow: hidden;
     position: relative;
-    box-shadow: var(--shadow-premium);
+    box-shadow: var(--plastic-inset-card), var(--plastic-shadow);
     transition: var(--transition-normal);
     display: flex;
     flex-direction: column;
@@ -326,21 +334,21 @@ body {
 }
 
 .product-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px) scale(1.02);
     border-color: var(--accent-red);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(229, 91, 119, 0.35);
+    box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 1), inset -5px -5px 12px rgba(255, 71, 126, 0.15), 0 20px 40px rgba(255, 71, 126, 0.18);
 }
 
-/* Floating Clean Promo Badge */
+/* Floating Clean Promo Badge (3D Gummy Pill Style) */
 .product-promo-badge-cloud {
-    background-color: var(--accent-red);
-    border: none;
-    border-radius: 4px;
-    padding: 0.35rem 0.7rem;
+    background: linear-gradient(135deg, #FF7B99 0%, #FF477E 100%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 20px;
+    padding: 0.35rem 0.8rem;
     position: absolute;
     top: 12px;
     right: 12px;
-    box-shadow: var(--neon-pink-shadow);
+    box-shadow: var(--plastic-inset-pill), 0 4px 10px rgba(255, 71, 126, 0.25);
     z-index: 5;
 }
 
@@ -439,24 +447,26 @@ body {
 }
 
 .btn-add {
-    background-color: var(--primary-gold);
+    background: linear-gradient(180deg, #FFD07B 0%, #FFB347 100%);
     color: var(--text-dark);
-    border: none;
-    padding: 0.55rem 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    padding: 0.55rem 1.4rem;
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 0.85rem;
-    border-radius: var(--border-radius-sm);
+    border-radius: 25px;
     cursor: pointer;
     transition: var(--transition-fast);
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
+    box-shadow: var(--plastic-inset-btn), 0 6px 15px rgba(255, 179, 71, 0.25);
 }
 
 .btn-add:hover {
-    background-color: var(--primary-gold-hover);
-    box-shadow: var(--neon-gold-shadow);
+    background: linear-gradient(180deg, #FFE0A5 0%, #FFB347 100%);
+    transform: scale(1.04);
+    box-shadow: inset 0 3px 5px rgba(255, 255, 255, 0.65), inset 0 -3px 5px rgba(0, 0, 0, 0.15), 0 10px 22px rgba(255, 179, 71, 0.38);
 }
 
 /* shopping cart bottom badge count float */
