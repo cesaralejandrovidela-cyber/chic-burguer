@@ -79,6 +79,24 @@
                 </button>
             </div>
 
+            <!-- CONFIGURACIÓN DE TEMA VISUAL EN TIEMPO REAL -->
+            <div class="admin-card" style="margin-bottom: 2rem; padding: 1.2rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <div style="font-size: 1.8rem; color: var(--accent-red);"><i class="fa-solid fa-palette"></i></div>
+                    <div>
+                        <h4 style="margin: 0; font-family: var(--font-heading); color: var(--text-white);">Tema Estético del Catálogo</h4>
+                        <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Elige el estilo visual que tus clientes verán en tiempo real en la tienda</p>
+                    </div>
+                </div>
+                <div>
+                    <select id="admin-theme-select" class="form-control" style="width: auto; min-width: 220px;" onchange="saveTheme(this.value)">
+                        <option value="theme-plastic-pink">🍭 Chic Bubbly Pink (Plástico 3D Rosa)</option>
+                        <option value="theme-neon-dark">🌙 Cyber Velvet Neon (Oscuro y Neón)</option>
+                        <option value="theme-candy-mint">🍬 Sweet Candy Mint (Menta y Fresa)</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="admin-split-grid">
                 
                 <!-- COLUMNA IZQUIERDA: INVENTARIO DE PRODUCTOS (Cargado de Nile DB) -->

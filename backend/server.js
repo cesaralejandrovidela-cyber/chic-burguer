@@ -203,6 +203,22 @@ async function initDatabase() {
         `);
         console.log("PostgreSQL 'products' table verified/created.");
 
+        // Create settings table
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS settings (
+                key VARCHAR(50) PRIMARY KEY,
+                value VARCHAR(255)
+            );
+        `);
+        console.log("PostgreSQL 'settings' table verified/created.");
+
+        // Seed default theme
+        await client.query(`
+            INSERT INTO settings (key, value) 
+            VALUES ('theme', 'theme-plastic-pink') 
+            ON CONFLICT (key) DO NOTHING;
+        `);
+
         // Check if database is empty to seed initial menu items
         const res = await client.query('SELECT COUNT(*) FROM products');
         const count = parseInt(res.rows[0].count);
@@ -239,6 +255,39 @@ async function initDatabase() {
 initDatabase();
 
 // ================= REST API ROUTES =================
+
+// GET /api/settings/theme - Retrieve current theme setting
+app.get('/api/settings/theme', async (req, res) => {
+    try {
+        const result = await pool.query("SELECT value FROM settings WHERE key = 'theme'");
+        if (result.rows.length === 0) {
+            return res.json({ theme: 'theme-plastic-pink' });
+        }
+        res.json({ theme: result.rows[0].value });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Database settings read error." });
+    }
+});
+
+// POST /api/settings/theme - Update current theme setting
+app.post('/api/settings/theme', async (req, res) => {
+    const { theme } = req.body;
+    if (!theme) {
+        return res.status(400).json({ error: "Missing theme value." });
+    }
+    
+    try {
+        await pool.query(
+            "INSERT INTO settings (key, value) VALUES ('theme', $1) ON CONFLICT (key) DO UPDATE SET value = $1",
+            [theme]
+        );
+        res.json({ success: true, theme });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Database settings update error." });
+    }
+});
 
 // GET /api/products - Retrieve all products
 app.get('/api/products', async (req, res) => {

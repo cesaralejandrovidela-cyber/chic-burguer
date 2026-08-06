@@ -34,6 +34,14 @@
     --plastic-inset-pill: inset 2px 2px 4px rgba(255, 255, 255, 0.9), inset -2px -2px 4px rgba(255, 71, 126, 0.04);
     --plastic-shadow: 0 15px 30px rgba(255, 71, 126, 0.12), 0 4px 8px rgba(255, 71, 126, 0.03);
     --plastic-shadow-btn: 0 8px 20px rgba(255, 71, 126, 0.28), 0 3px 6px rgba(0, 0, 0, 0.05);
+
+    /* Dynamic Theme Layout Variables */
+    --bg-card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 235, 238, 0.8) 100%);
+    --bg-header-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 240, 243, 0.65) 100%);
+    --border-card: 2px solid #FFFFFF;
+    --border-header: 2px solid #FFFFFF;
+    --shadow-card: var(--plastic-inset-card), var(--plastic-shadow);
+    --shadow-header: inset 0 3px 6px rgba(255, 255, 255, 0.9), 0 8px 32px rgba(255, 71, 126, 0.04);
     
     /* Fonts */
     --font-heading: 'Outfit', sans-serif;
@@ -92,15 +100,15 @@ body {
 
 /* Cabecera / Banner de la marca */
 .header-banner {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 240, 243, 0.65) 100%);
+    background: var(--bg-header-gradient);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 2px solid #FFFFFF;
+    border-bottom: var(--border-header);
     padding: 1.2rem 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: inset 0 3px 6px rgba(255, 255, 255, 0.9), 0 8px 32px rgba(255, 71, 126, 0.04);
+    box-shadow: var(--shadow-header);
 }
 
 .header-frame {
@@ -244,15 +252,15 @@ body {
 }
 
 .promo-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 235, 238, 0.8) 100%);
-    border: 2px solid #FFFFFF;
+    background: var(--bg-card-gradient);
+    border: var(--border-card);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: var(--border-radius-md);
     padding: 1.5rem;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--plastic-inset-card), var(--plastic-shadow);
+    box-shadow: var(--shadow-card);
     transition: var(--transition-normal);
 }
 
@@ -318,14 +326,14 @@ body {
 
 /* Styled Product Card (Glossy Claymorphic 3D Bubble Layout) */
 .product-card {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 235, 238, 0.8) 100%);
+    background: var(--bg-card-gradient);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 2px solid #FFFFFF;
+    border: var(--border-card);
     border-radius: var(--border-radius-md);
     overflow: hidden;
     position: relative;
-    box-shadow: var(--plastic-inset-card), var(--plastic-shadow);
+    box-shadow: var(--shadow-card);
     transition: var(--transition-normal);
     display: flex;
     flex-direction: column;
@@ -1644,5 +1652,111 @@ body {
         transform: translateY(-115vh) translateX(var(--drift-val, 5vw)) rotate(360deg);
         opacity: 0;
     }
+}
+
+/* Theme Stylesheets - Cyber Velvet Neon Theme */
+body.theme-neon-dark {
+    --bg-dark-deep: #0B0304;            /* deep velvet black-maroon */
+    --bg-dark-card: rgba(25, 7, 10, 0.65); /* glassmorphic dark maroon card background */
+    --bg-dark-input: #170709;           /* very dark maroon input */
+    
+    --primary-gold: #FCD27B;            /* glowing neon gold-cream */
+    --primary-gold-hover: #E3B85D;
+    
+    --accent-red: #E55B77;              /* glowing neon rose-pink */
+    --accent-red-hover: #D2425E;
+    
+    --border-gold: rgba(252, 210, 123, 0.15);
+    --border-glass: rgba(229, 91, 119, 0.15);
+    
+    --text-white: #FFF0F2;              /* soft cream-white for typography */
+    --text-muted: #B38F95;              /* muted rose-gray */
+    --text-dark: #0B0304;               /* deep black-maroon for dark badges */
+    
+    /* Neon Glow Effects */
+    --neon-pink-shadow: 0 0 10px rgba(229, 91, 119, 0.65), 0 0 20px rgba(229, 91, 119, 0.3);
+    --neon-gold-shadow: 0 0 10px rgba(252, 210, 123, 0.65), 0 0 20px rgba(252, 210, 123, 0.3);
+    --neon-pink-text: 0 0 6px rgba(229, 91, 119, 0.8), 0 0 12px rgba(229, 91, 119, 0.4);
+    --neon-gold-text: 0 0 6px rgba(252, 210, 123, 0.8), 0 0 12px rgba(252, 210, 123, 0.4);
+    
+    /* Inset/shadow changes to fit dark mode */
+    --bg-card-gradient: linear-gradient(135deg, rgba(25, 7, 10, 0.85) 0%, rgba(11, 3, 4, 0.75) 100%);
+    --bg-header-gradient: linear-gradient(135deg, rgba(11, 3, 4, 0.85) 0%, rgba(25, 7, 10, 0.75) 100%);
+    --border-card: 1px solid var(--border-glass);
+    --border-header: 1px solid var(--border-glass);
+    --shadow-card: var(--neon-pink-shadow);
+    --shadow-header: 0 4px 30px rgba(0, 0, 0, 0.5);
+    
+    --plastic-inset-card: none;
+    --plastic-inset-btn: inset 0 3px 5px rgba(255, 255, 255, 0.25), inset 0 -3px 5px rgba(0, 0, 0, 0.4);
+    --plastic-shadow-btn: 0 8px 16px rgba(229, 91, 119, 0.35);
+}
+body.theme-neon-dark #category-nav-bar {
+    background: rgba(11, 3, 4, 0.5);
+}
+body.theme-neon-dark .category-btn {
+    background: rgba(25, 7, 10, 0.6);
+    border: 1px solid var(--border-glass);
+    box-shadow: none;
+}
+body.theme-neon-dark .category-btn.active, body.theme-neon-dark .category-btn:hover {
+    background: var(--accent-red);
+    color: var(--text-white);
+    border-color: var(--accent-red);
+    box-shadow: var(--neon-pink-shadow);
+    transform: translateY(-1px);
+}
+body.theme-neon-dark .cart-item {
+    background: rgba(25, 7, 10, 0.4);
+}
+body.theme-neon-dark .option-card {
+    background: rgba(25, 7, 10, 0.4);
+}
+body.theme-neon-dark .option-card:hover {
+    background: rgba(25, 7, 10, 0.7);
+}
+body.theme-neon-dark .quantity-control {
+    background: rgba(25, 7, 10, 0.4);
+}
+
+/* Theme Stylesheets - Sweet Candy Mint Theme */
+body.theme-candy-mint {
+    --bg-dark-deep: #E2F5F0;            /* light pastel mint green */
+    --bg-dark-card: rgba(255, 255, 255, 0.85); /* white glassmorphic card background */
+    --bg-dark-input: #FFFFFF;           /* pure white input */
+    
+    --primary-gold: #FF8DA1;            /* glowing candy rose pink! */
+    --primary-gold-hover: #FF7B99;
+    
+    --accent-red: #2EC4B6;              /* vibrant mint teal! */
+    --accent-red-hover: #0F9F90;
+    
+    --border-gold: rgba(255, 141, 161, 0.25);
+    --border-glass: rgba(46, 196, 182, 0.18);
+    
+    --text-white: #1D2D2A;              /* deep forest green text */
+    --text-muted: #6B8B84;              /* muted mint-gray */
+    --text-dark: #FFFFFF;               /* pure white for text inside dark badges/buttons */
+    
+    /* Neon/Sparkle Glow Effects (Teal theme) */
+    --neon-pink-shadow: 0 4px 14px rgba(46, 196, 182, 0.35), 0 0 8px rgba(46, 196, 182, 0.15);
+    --neon-gold-shadow: 0 4px 14px rgba(255, 141, 161, 0.35), 0 0 8px rgba(255, 141, 161, 0.15);
+    --neon-pink-text: 0 1px 2px rgba(46, 196, 182, 0.3);
+    --neon-gold-text: 0 1px 2px rgba(255, 141, 161, 0.3);
+    
+    /* Glossy 3D Plastic Relief Shadows */
+    --plastic-inset-card: inset 4px 4px 8px rgba(255, 255, 255, 0.95), inset -4px -4px 10px rgba(46, 196, 182, 0.08);
+    --plastic-inset-btn: inset 0 3px 5px rgba(255, 255, 255, 0.45), inset 0 -3px 5px rgba(0, 0, 0, 0.15);
+    --plastic-inset-pill: inset 2px 2px 4px rgba(255, 255, 255, 0.9), inset -2px -2px 4px rgba(46, 196, 182, 0.04);
+    --plastic-shadow: 0 15px 30px rgba(46, 196, 182, 0.12), 0 4px 8px rgba(46, 196, 182, 0.03);
+    --plastic-shadow-btn: 0 8px 20px rgba(46, 196, 182, 0.28), 0 3px 6px rgba(0, 0, 0, 0.05);
+
+    /* Dynamic Theme Layout Variables */
+    --bg-card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(226, 245, 240, 0.85) 100%);
+    --bg-header-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(226, 245, 240, 0.65) 100%);
+    --border-card: 2px solid #FFFFFF;
+    --border-header: 2px solid #FFFFFF;
+    --shadow-card: var(--plastic-inset-card), var(--plastic-shadow);
+    --shadow-header: inset 0 3px 6px rgba(255, 255, 255, 0.9), 0 8px 32px rgba(46, 196, 182, 0.04);
 }
 

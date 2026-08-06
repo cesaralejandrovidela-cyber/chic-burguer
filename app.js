@@ -191,6 +191,11 @@ const INITIAL_PRODUCTS = [
 
 // INIT
 window.addEventListener("DOMContentLoaded", () => {
+    // Apply theme from settings
+    const localTheme = localStorage.getItem("chic_theme") || "theme-plastic-pink";
+    applyTheme(localTheme);
+    loadTheme();
+
     // Apply custom brand background if present in localStorage
     applyWebpageBackground();
 
@@ -1372,13 +1377,19 @@ function setupDragAndDrop() {
     });
 }
 
-// Spawns floating mini burgers and hearts on the catalog screen background
+// Spawns floating mini burgers and hearts on the catalog screen background (adapting to current theme)
 function initDynamicBackground() {
     const container = document.createElement("div");
     container.className = "dynamic-bg-container";
     document.body.appendChild(container);
 
-    const emojis = ["🍔", "💖", "💕", "✨"];
+    // Pick emojis based on active body class theme
+    let emojis = ["🍔", "💖", "💕", "✨"]; // Default theme-plastic-pink
+    if (document.body.classList.contains("theme-neon-dark")) {
+        emojis = ["🍔", "⚡", "🔥", "👑", "✨"];
+    } else if (document.body.classList.contains("theme-candy-mint")) {
+        emojis = ["🍔", "🍦", "🍭", "🍬", "✨"];
+    }
     
     function spawnParticle() {
         if (document.hidden) return;
@@ -1412,5 +1423,62 @@ function initDynamicBackground() {
     }
     
     // Spawn loop
-    setInterval(spawnParticle, 1200);
+    window.dynamicBgInterval = setInterval(spawnParticle, 1200);
+}
+
+// Fetch active theme configuration from the database settings
+async function loadTheme() {
+    try {
+        const response = await fetch(`${API_URL}/api/settings/theme`);
+        if (response.ok) {
+            const data = await response.json();
+            if (data.theme) {
+                applyTheme(data.theme);
+            }
+        }
+    } catch (err) {
+        console.error("Error loading theme from database:", err);
+    }
+}
+
+// Apply theme classes and restart particle background
+function applyTheme(theme) {
+    document.body.classList.remove('theme-plastic-pink', 'theme-neon-dark', 'theme-candy-mint');
+    document.body.classList.add(theme);
+    localStorage.setItem("chic_theme", theme);
+    
+    // Sync admin dropdown selector if present
+    const themeSelect = document.getElementById("admin-theme-select");
+    if (themeSelect) {
+        themeSelect.value = theme;
+    }
+    
+    // Re-initialize background particles if client view is active
+    if (document.getElementById("view-client")) {
+        const oldContainer = document.querySelector(".dynamic-bg-container");
+        if (oldContainer) oldContainer.remove();
+        
+        if (window.dynamicBgInterval) clearInterval(window.dynamicBgInterval);
+        initDynamicBackground();
+    }
+}
+
+// Save active theme to backend database and apply locally
+async function saveTheme(theme) {
+    applyTheme(theme);
+    try {
+        const response = await fetch(`${API_URL}/api/settings/theme`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ theme })
+        });
+        if (response.ok) {
+            showToast("Tema actualizado en la base de datos", "success");
+        } else {
+            showToast("No se pudo guardar en el servidor", "error");
+        }
+    } catch (err) {
+        console.error("Error saving theme to database:", err);
+        showToast("Error de conexión al guardar tema", "error");
+    }
 }
