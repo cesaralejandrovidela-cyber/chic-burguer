@@ -27,11 +27,8 @@
             <div class="brand-title" id="logo-branding">
                 <span class="neon-chic">CHIC</span> <span class="neon-burger">BURGER</span>
             </div>
-            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
+            <div>
                 <span class="brand-subtitle-banner">Un Viaje de Sabor para Compartir</span>
-                <button class="promo-shortcut-btn" onclick="document.getElementById('promo-title-sec').scrollIntoView({ behavior: 'smooth' })" style="padding: 0.45rem 1rem; font-size: 0.75rem; border-radius: 20px; font-family: var(--font-heading); font-weight: 800; cursor: pointer; border: 2px solid #FFFFFF; background: linear-gradient(135deg, #FF477E 0%, #FFB347 100%); color: #FFFFFF; animation: pulse-glow 2s infinite alternate;">
-                    🔥 Promos Chic Burger 🔥
-                </button>
             </div>
         </div>
     </header>
@@ -39,12 +36,29 @@
     <!-- CONTENEDOR PRINCIPAL CLIENTE -->
     <main class="app-container" id="view-client">
         
-        <!-- Sección de Promociones Especiales -->
-        <h2 class="section-title" id="promo-title-sec" style="text-align: center; margin-bottom: 2rem; font-family: var(--font-heading); font-size: 1.6rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase;">
+        <!-- Navegación de Categorías -->
+        <nav class="category-nav" id="category-nav-bar" style="margin-bottom: 2rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-gold); background: rgba(255, 255, 255, 0.01);">
+            <div class="category-nav">
+                <button class="category-btn active" onclick="filterCategory('all')">Todos</button>
+                <button class="category-btn" onclick="filterCategory('hamburguesas')">Hamburguesas</button>
+                <button class="category-btn" onclick="filterCategory('combos')">Combos</button>
+                <button class="category-btn" onclick="filterCategory('bebidas')">Bebidas</button>
+                <button class="category-btn" onclick="filterCategory('papas-extras')">Papas & Extras</button>
+                <button class="category-btn" onclick="document.getElementById('promo-title-sec').scrollIntoView({ behavior: 'smooth' })" style="background: linear-gradient(135deg, rgba(255, 71, 126, 0.1) 0%, rgba(255, 179, 71, 0.1) 100%); border-color: var(--border-glass);">🔥 Promos</button>
+            </div>
+        </nav>
+
+        <!-- Grilla de Productos del Catálogo -->
+        <div class="catalog-grid" id="catalog-products-container">
+            <!-- Los productos se inyectan mediante JavaScript -->
+        </div>
+
+        <!-- Sección de Promociones Especiales (Debajo del Menú) -->
+        <h2 class="section-title" id="promo-title-sec" style="text-align: center; margin-top: 4rem; margin-bottom: 2rem; font-family: var(--font-heading); font-size: 1.6rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase;">
             <i class="fa-solid fa-star" style="color: var(--primary-gold); margin-right: 0.5rem;"></i> Promociones Especiales
         </h2>
         
-        <div class="promo-carousel" id="promo-carousel-container">
+        <div class="promo-carousel" id="promo-carousel-container" style="margin-bottom: 3rem;">
             <!-- Promo 1: 4 Hamburguesas -->
             <div class="promo-card">
                 <div class="promo-ribbon">Recomendado</div>
@@ -81,22 +95,6 @@
                     <button class="btn-add" onclick="quickAddProduct(7)">Agregar</button>
                 </div>
             </div>
-        </div>
-
-        <!-- Navegación de Categorías -->
-        <nav class="category-nav" id="category-nav-bar" style="margin-bottom: 2rem; border-radius: var(--border-radius-md); border: 1px solid var(--border-gold); background: rgba(255, 255, 255, 0.01);">
-            <div class="category-nav">
-                <button class="category-btn active" onclick="filterCategory('all')">Todos</button>
-                <button class="category-btn" onclick="filterCategory('hamburguesas')">Hamburguesas</button>
-                <button class="category-btn" onclick="filterCategory('combos')">Combos</button>
-                <button class="category-btn" onclick="filterCategory('bebidas')">Bebidas</button>
-                <button class="category-btn" onclick="filterCategory('papas-extras')">Papas & Extras</button>
-            </div>
-        </nav>
-
-        <!-- Grilla de Productos del Catálogo -->
-        <div class="catalog-grid" id="catalog-products-container">
-            <!-- Los productos se inyectan mediante JavaScript -->
         </div>
     </main>
 
