@@ -1,44 +1,45 @@
 /* CSS Design System - Chic Burger (Rotisería Cloudflare) */
-/* Premium Modern Champagne Gold & Velvet Rose Aesthetic */
+/* Premium Modern Feminine Pink & Glowing Gold Aesthetic */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Satisfy&family=Outfit:wght@400;600;700;800&display=swap');
 
 :root {
-    /* Color Palette derived from flyer: Cream/Gold, Rose/Pink, Velvet Maroon */
-    --bg-dark-deep: #0B0304;            /* deep velvet black-maroon */
-    --bg-dark-card: rgba(25, 7, 10, 0.65); /* glassmorphic dark maroon card background */
-    --bg-dark-input: #170709;           /* very dark maroon input */
+    /* Color Palette: Bright Soft Pink, Hot Pink, Sweet Gold/Cream, Pure White Glassmorphism */
+    --bg-dark-deep: #FFF5F6;            /* bright sweet blush/pink background */
+    --bg-dark-card: rgba(255, 255, 255, 0.85); /* white glassmorphic card background */
+    --bg-dark-input: #FFFFFF;           /* pure white input */
     
-    --primary-gold: #FCD27B;            /* glowing neon gold-cream */
-    --primary-gold-hover: #E3B85D;
+    --primary-gold: #FFB347;            /* glowing rose gold/orange-gold */
+    --primary-gold-hover: #FFA07A;
     
-    --accent-red: #E55B77;              /* glowing neon rose-pink */
-    --accent-red-hover: #D2425E;
+    --accent-red: #FF477E;              /* vibrant feminine hot pink */
+    --accent-red-hover: #FF1F5B;
     
-    --border-gold: rgba(252, 210, 123, 0.15);
-    --border-glass: rgba(229, 91, 119, 0.15);
+    --border-gold: rgba(255, 179, 71, 0.25);
+    --border-glass: rgba(255, 71, 126, 0.18);
     
-    --text-white: #FFF0F2;              /* soft cream-white for typography */
-    --text-muted: #B38F95;              /* muted rose-gray */
-    --text-dark: #0B0304;               /* deep black-maroon for dark badges */
+    --text-white: #2C181D;              /* deep dark chocolate/maroon for legible text */
+    --text-muted: #8E7A7D;              /* sweet dusty rose/gray */
+    --text-dark: #FFFFFF;               /* pure white for text inside dark badges/buttons */
     
-    /* Neon Glow Effects */
-    --neon-pink-shadow: 0 0 10px rgba(229, 91, 119, 0.65), 0 0 20px rgba(229, 91, 119, 0.3);
-    --neon-gold-shadow: 0 0 10px rgba(252, 210, 123, 0.65), 0 0 20px rgba(252, 210, 123, 0.3);
-    --neon-pink-text: 0 0 6px rgba(229, 91, 119, 0.8), 0 0 12px rgba(229, 91, 119, 0.4);
-    --neon-gold-text: 0 0 6px rgba(252, 210, 123, 0.8), 0 0 12px rgba(252, 210, 123, 0.4);
+    /* Neon/Sparkle Glow Effects (Bright theme) */
+    --neon-pink-shadow: 0 4px 14px rgba(255, 71, 126, 0.35), 0 0 8px rgba(255, 71, 126, 0.15);
+    --neon-gold-shadow: 0 4px 14px rgba(255, 179, 71, 0.35), 0 0 8px rgba(255, 179, 71, 0.15);
+    --neon-pink-text: 0 1px 2px rgba(255, 71, 126, 0.3);
+    --neon-gold-text: 0 1px 2px rgba(255, 179, 71, 0.3);
     
     /* Fonts */
-    --font-heading: 'Montserrat', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+    --font-accent: 'Satisfy', cursive;   /* elegant cursive accent for "Sabor que Enamora" */
     
     /* Tokens */
-    --border-radius-sm: 8px;
-    --border-radius-md: 14px;
-    --border-radius-lg: 20px;
+    --border-radius-sm: 10px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 24px;
     --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-normal: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    --shadow-premium: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(229, 91, 119, 0.05);
+    --shadow-premium: 0 12px 30px rgba(255, 71, 126, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 /* Reset & Global Styles */
@@ -118,15 +119,25 @@ body {
     display: inline-block;
 }
 
+.neon-chic {
+    color: var(--accent-red);
+    text-shadow: 0 0 8px rgba(255, 71, 126, 0.5), 0 0 15px rgba(255, 71, 126, 0.2);
+}
+
+.neon-burger {
+    color: var(--primary-gold);
+    text-shadow: 0 0 8px rgba(255, 179, 71, 0.5), 0 0 15px rgba(255, 179, 71, 0.2);
+}
+
 /* Subtitle and Meta Links */
 .brand-subtitle-banner {
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    letter-spacing: 3px;
-    margin-top: 0.2rem;
+    font-family: var(--font-accent);
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-transform: none;
+    color: var(--accent-red);
+    letter-spacing: 1px;
+    margin-top: 0.4rem;
     display: block;
 }
 
@@ -165,7 +176,9 @@ body {
 
 /* Category Navigation Filter Bar */
 #category-nav-bar {
-    background: rgba(11, 3, 4, 0.5);
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-glass);
     padding: 1rem 0;
 }
@@ -188,7 +201,7 @@ body {
     font-family: var(--font-heading);
     font-size: 0.85rem;
     font-weight: 600;
-    background: rgba(25, 7, 10, 0.6);
+    background: rgba(255, 255, 255, 0.8);
     color: var(--text-muted);
     border: 1px solid var(--border-glass);
     padding: 0.5rem 1.4rem;
@@ -599,7 +612,7 @@ body {
 }
 
 .option-card {
-    background: rgba(25, 7, 10, 0.4);
+    background: rgba(255, 255, 255, 0.70);
     border: 1px solid var(--border-glass);
     border-radius: var(--border-radius-sm);
     padding: 0.8rem 1rem;
@@ -611,11 +624,11 @@ body {
 }
 
 .option-card:hover {
-    background: rgba(25, 7, 10, 0.7);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .option-card.selected {
-    background: rgba(229, 91, 119, 0.08);
+    background: rgba(255, 71, 126, 0.08);
     border-color: var(--accent-red);
 }
 
@@ -643,7 +656,7 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: rgba(25, 7, 10, 0.4);
+    background: rgba(255, 255, 255, 0.70);
     border: 1px solid var(--border-glass);
     border-radius: var(--border-radius-sm);
     padding: 0.4rem 0.8rem;
@@ -769,7 +782,7 @@ body {
 .cart-item {
     display: flex;
     gap: 0.8rem;
-    background: rgba(25, 7, 10, 0.4);
+    background: rgba(255, 255, 255, 0.8);
     border: 1px solid var(--border-glass);
     border-radius: var(--border-radius-sm);
     padding: 0.8rem;
