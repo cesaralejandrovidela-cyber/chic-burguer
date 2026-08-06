@@ -257,6 +257,22 @@ async function fetchProducts() {
         }
     }
     
+    // Custom category sorting: hamburguesas first, combos, papas, bebidas last
+    const categoryOrder = {
+        'hamburguesas': 1,
+        'combos': 2,
+        'papas-extras': 3,
+        'bebidas': 4
+    };
+    products.sort((a, b) => {
+        const orderA = categoryOrder[a.category] || 99;
+        const orderB = categoryOrder[b.category] || 99;
+        if (orderA !== orderB) {
+            return orderA - orderB;
+        }
+        return a.id - b.id;
+    });
+    
     // Render whichever components exist on the page
     const isClientPage = document.getElementById("view-client") !== null;
     const isAdminPage = document.getElementById("view-admin") !== null;
@@ -1389,13 +1405,8 @@ function initDynamicBackground() {
     container.className = "dynamic-bg-container";
     document.body.appendChild(container);
 
-    // Pick emojis based on active body class theme
-    let emojis = ["🍔", "💖", "💕", "✨"]; // Default theme-plastic-pink
-    if (document.body.classList.contains("theme-neon-dark")) {
-        emojis = ["🍔", "⚡", "🔥", "👑", "✨"];
-    } else if (document.body.classList.contains("theme-candy-mint")) {
-        emojis = ["🍔", "🍦", "🍭", "🍬", "✨"];
-    }
+    // We always use burgers, hearts, and sparkles for a sweet, branding-consistent look
+    const emojis = ["🍔", "💖", "💕", "✨"];
     
     function spawnParticle() {
         if (document.hidden) return;

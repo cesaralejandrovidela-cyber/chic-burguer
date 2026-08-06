@@ -27,8 +27,11 @@
             <div class="brand-title" id="logo-branding">
                 <span class="neon-chic">CHIC</span> <span class="neon-burger">BURGER</span>
             </div>
-            <div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
                 <span class="brand-subtitle-banner">Un Viaje de Sabor para Compartir</span>
+                <button class="promo-shortcut-btn" onclick="document.getElementById('promo-title-sec').scrollIntoView({ behavior: 'smooth' })" style="padding: 0.45rem 1rem; font-size: 0.75rem; border-radius: 20px; font-family: var(--font-heading); font-weight: 800; cursor: pointer; border: 2px solid #FFFFFF; background: linear-gradient(135deg, #FF477E 0%, #FFB347 100%); color: #FFFFFF; animation: pulse-glow 2s infinite alternate;">
+                    🔥 Promos Chic Burger 🔥
+                </button>
             </div>
         </div>
     </header>
@@ -37,7 +40,7 @@
     <main class="app-container" id="view-client">
         
         <!-- Sección de Promociones Especiales -->
-        <h2 class="section-title" style="text-align: center; margin-bottom: 2rem; font-family: var(--font-heading); font-size: 1.6rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase;">
+        <h2 class="section-title" id="promo-title-sec" style="text-align: center; margin-bottom: 2rem; font-family: var(--font-heading); font-size: 1.6rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase;">
             <i class="fa-solid fa-star" style="color: var(--primary-gold); margin-right: 0.5rem;"></i> Promociones Especiales
         </h2>
         
