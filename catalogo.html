@@ -44,46 +44,12 @@
                 <button class="category-btn" onclick="filterCategory('combos')">Combos</button>
                 <button class="category-btn" onclick="filterCategory('bebidas')">Bebidas</button>
                 <button class="category-btn" onclick="filterCategory('papas-extras')">Papas & Extras</button>
-                <button class="category-btn" onclick="document.getElementById('promo-title-sec').scrollIntoView({ behavior: 'smooth' })" style="background: linear-gradient(135deg, rgba(255, 71, 126, 0.1) 0%, rgba(255, 179, 71, 0.1) 100%); border-color: var(--border-glass);">🔥 Promos</button>
             </div>
         </nav>
 
         <!-- Grilla de Productos del Catálogo -->
         <div class="catalog-grid" id="catalog-products-container">
             <!-- Los productos se inyectan mediante JavaScript -->
-        </div>
-
-        <!-- Sección de Promociones Especiales (Debajo del Menú - Ancho Completo) -->
-        <div class="promo-section-full" id="promo-section-container">
-            <h2 class="section-title" id="promo-title-sec" style="text-align: center; margin-bottom: 3rem; font-family: var(--font-heading); font-size: 1.6rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase;">
-                <i class="fa-solid fa-star" style="color: var(--primary-gold); margin-right: 0.5rem;"></i> Promociones Especiales
-            </h2>
-            
-            <div class="promo-carousel" id="promo-carousel-container" style="margin-bottom: 2rem;">
-                <!-- Promo 1: 4 Hamburguesas (Flyer 1) -->
-                <div class="promo-card">
-                    <img class="promo-flyer-img" src="media_1785885191922.jpg" alt="Promo Chic Burger" onerror="this.src='https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&auto=format&fit=crop&q=60'">
-                    <button class="btn-add" onclick="openPromoCustomizer('promo-chic')" style="padding: 0.8rem 2rem; font-size: 0.95rem; border-radius: 25px; min-width: 220px; justify-content: center;">
-                        🔥 Pedir Promo 4x Burgers 🔥
-                    </button>
-                </div>
-
-                <!-- Promo 2: 2x Hamburguesas XL (Flyer 2) -->
-                <div class="promo-card">
-                    <img class="promo-flyer-img" src="media_1785885191939.jpg" alt="Promo 2x XL + Papas" onerror="this.src='https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&auto=format&fit=crop&q=60'">
-                    <button class="btn-add" onclick="openPromoCustomizer('promo-2x')" style="padding: 0.8rem 2rem; font-size: 0.95rem; border-radius: 25px; min-width: 220px; justify-content: center;">
-                        🔥 Pedir Promo 2x XL 🔥
-                    </button>
-                </div>
-
-                <!-- Promo 3: Lata de Coca / Bebida (Flyer 3) -->
-                <div class="promo-card">
-                    <img class="promo-flyer-img" src="media_1785885191949.jpg" alt="Lata de Coca" onerror="this.src='https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=600&auto=format&fit=crop&q=60'">
-                    <button class="btn-add" onclick="quickAddProduct(7)" style="padding: 0.8rem 2rem; font-size: 0.95rem; border-radius: 25px; min-width: 220px; justify-content: center;">
-                        🥤 Agregar Bebida 🥤
-                    </button>
-                </div>
-            </div>
         </div>
     </main>
 
@@ -212,6 +178,67 @@
             <p class="footer-text">Excelente calidad y seriedad desde la cocina a tu mesa. Rápido, Rico y Hecho con Amor.</p>
         </div>
     </footer>
+
+    <!-- ================= MODAL: PROMOCIONES FLOTANTES ================= -->
+    <div class="modal-overlay" id="promos-modal" onclick="if(event.target === this) togglePromosModal(false)">
+        <div class="modal-content" style="max-width: 600px;">
+            <button class="modal-close" onclick="togglePromosModal(false)"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="cust-body" style="padding: 2rem 1.5rem;">
+                <h2 class="section-title" style="text-align: center; margin-bottom: 2rem; font-family: var(--font-heading); font-size: 1.5rem; letter-spacing: 1px; font-weight: 700; text-transform: uppercase; color: var(--text-white);">
+                    <i class="fa-solid fa-star" style="color: var(--primary-gold); margin-right: 0.5rem;"></i> Promociones Especiales
+                </h2>
+                
+                <div class="promo-carousel" id="promo-carousel-container" style="display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 1.5rem;">
+                    <!-- Promo 1: 4 Hamburguesas -->
+                    <div class="promo-card">
+                        <div class="promo-ribbon">Recomendado</div>
+                        <h3 class="promo-title">Promo Chic Burger</h3>
+                        <p class="promo-desc">4 Hamburguesas completas con papas fritas familiares crocantes.</p>
+                        <div class="promo-price">
+                            <div>
+                                <span>$26.000</span>$23.000
+                            </div>
+                            <button class="btn-add" onclick="openPromoCustomizer('promo-chic')">Pedir Promo</button>
+                        </div>
+                    </div>
+    
+                    <!-- Promo 2: 2x Hamburguesas XL -->
+                    <div class="promo-card">
+                        <div class="promo-ribbon">Menú XL</div>
+                        <h3 class="promo-title">Promo 2x XL + Papas</h3>
+                        <p class="promo-desc">Dos hamburguesas extra grandes premium completas acompañadas de papas medianas.</p>
+                        <div class="promo-price">
+                            <div>
+                                <span>$15.000</span>$12.000
+                            </div>
+                            <button class="btn-add" onclick="openPromoCustomizer('promo-2x')">Pedir Promo</button>
+                        </div>
+                    </div>
+    
+                    <!-- Promo 3: Bebida Lata -->
+                    <div class="promo-card">
+                        <div class="promo-ribbon">Bebida</div>
+                        <h3 class="promo-title">Lata de Coca</h3>
+                        <p class="promo-desc">Refresco Coca-Cola original helado para acompañar tu menú virtual.</p>
+                        <div class="promo-price">
+                            <div>$2.500</div>
+                            <button class="btn-add" onclick="quickAddProduct(7)">Agregar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-back-catalog" onclick="togglePromosModal(false)" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Volver al Catálogo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE DE PROMOS -->
+    <button class="btn-promos-float" onclick="togglePromosModal(true)">
+        🔥 Promos Chic Burger 🔥
+    </button>
 
     <!-- Scripts de la Aplicación -->
     <script src="app.js"></script>

@@ -442,6 +442,7 @@ function quickAddProduct(productId) {
 
 // Open Promo Flyer selection in Customizer (e.g. 4 Hamburguesas con papas)
 function openPromoCustomizer(promoType) {
+    togglePromosModal(false);
     let promoProduct = {};
     
     if (promoType === 'promo-chic') {
@@ -601,6 +602,7 @@ function openCustomizerDirect(product) {
 }
 
 let modalStatePushed = false;
+let promosModalStatePushed = false;
 
 function closeCustomizerModal(isPopState = false) {
     document.getElementById("customizer-modal").classList.remove("open");
@@ -616,11 +618,36 @@ function closeCustomizerModal(isPopState = false) {
     }
 }
 
+function togglePromosModal(open, isPopState = false) {
+    const modal = document.getElementById("promos-modal");
+    if (!modal) return;
+    
+    if (open) {
+        modal.classList.add("open");
+        if (!isPopState) {
+            history.pushState({ promosOpen: true }, "");
+            promosModalStatePushed = true;
+        }
+    } else {
+        modal.classList.remove("open");
+        if (promosModalStatePushed && !isPopState) {
+            history.back();
+            promosModalStatePushed = false;
+        } else if (isPopState) {
+            promosModalStatePushed = false;
+        }
+    }
+}
+
 // Listen to browser Back button (popstate)
 window.addEventListener("popstate", (event) => {
     const modal = document.getElementById("customizer-modal");
     if (modal && modal.classList.contains("open")) {
         closeCustomizerModal(true);
+    }
+    const promosModal = document.getElementById("promos-modal");
+    if (promosModal && promosModal.classList.contains("open")) {
+        togglePromosModal(false, true);
     }
 });
 
@@ -630,6 +657,10 @@ window.addEventListener("keydown", (event) => {
         const modal = document.getElementById("customizer-modal");
         if (modal && modal.classList.contains("open")) {
             closeCustomizerModal();
+        }
+        const promosModal = document.getElementById("promos-modal");
+        if (promosModal && promosModal.classList.contains("open")) {
+            togglePromosModal(false);
         }
         // Also close the cart drawer if it is open
         const drawer = document.getElementById("cart-drawer-overlay");
