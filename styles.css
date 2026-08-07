@@ -42,6 +42,8 @@
     --border-header: 2px solid #FFFFFF;
     --shadow-card: var(--plastic-inset-card), var(--plastic-shadow);
     --shadow-header: inset 0 3px 6px rgba(255, 255, 255, 0.9), 0 8px 32px rgba(255, 71, 126, 0.04);
+    --bg-promo-full: linear-gradient(135deg, #FFF0F2 0%, #FFF5F6 100%);
+    --border-promo-flyer: #FFFFFF;
     
     /* Fonts */
     --font-heading: 'Outfit', sans-serif;
@@ -244,30 +246,53 @@ body {
 }
 
 /* Catalog Promotion Ribbon section */
+.promo-section-full {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background: var(--bg-promo-full);
+    border-top: 2px solid rgba(255, 71, 126, 0.08);
+    border-bottom: 2px solid rgba(255, 71, 126, 0.08);
+    padding: 4rem 0;
+    margin-top: 5rem;
+    box-shadow: inset 0 10px 30px rgba(255, 71, 126, 0.03), inset 0 -10px 30px rgba(255, 71, 126, 0.03);
+}
+
 .promo-carousel {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
 .promo-card {
-    background: var(--bg-card-gradient);
-    border: var(--border-card);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: var(--border-radius-md);
-    padding: 1.5rem;
+    background: transparent;
+    border: none;
+    border-radius: var(--border-radius-lg);
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-card);
+    transition: var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    box-shadow: none;
+}
+
+.promo-flyer-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-lg);
+    border: 3.5px solid var(--border-promo-flyer);
+    box-shadow: var(--plastic-inset-card), var(--plastic-shadow);
     transition: var(--transition-normal);
 }
 
-.promo-card:hover {
-    transform: translateY(-5px) scale(1.015);
+.promo-card:hover .promo-flyer-img {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 1), inset -5px -5px 12px rgba(255, 71, 126, 0.15), 0 20px 40px rgba(255, 71, 126, 0.18);
     border-color: var(--accent-red);
-    box-shadow: inset 5px 5px 10px rgba(255, 255, 255, 1), inset -5px -5px 12px rgba(255, 71, 126, 0.15), 0 18px 36px rgba(255, 71, 126, 0.15);
 }
 
 .promo-ribbon {
@@ -1693,6 +1718,8 @@ body.theme-neon-dark {
     --plastic-inset-card: none;
     --plastic-inset-btn: inset 0 3px 5px rgba(255, 255, 255, 0.25), inset 0 -3px 5px rgba(0, 0, 0, 0.4);
     --plastic-shadow-btn: 0 8px 16px rgba(229, 91, 119, 0.35);
+    --bg-promo-full: linear-gradient(135deg, #0F0406 0%, #150608 100%);
+    --border-promo-flyer: rgba(229, 91, 119, 0.4);
 }
 body.theme-neon-dark #category-nav-bar {
     background: rgba(11, 3, 4, 0.5);
@@ -1761,6 +1788,8 @@ body.theme-candy-mint {
     --border-header: 2px solid #FFFFFF;
     --shadow-card: var(--plastic-inset-card), var(--plastic-shadow);
     --shadow-header: inset 0 3px 6px rgba(255, 255, 255, 0.9), 0 8px 32px rgba(46, 196, 182, 0.04);
+    --bg-promo-full: linear-gradient(135deg, #EBF8F5 0%, #E2F5F0 100%);
+    --border-promo-flyer: #FFFFFF;
 }
 
 /* Back button in customizer modal */
